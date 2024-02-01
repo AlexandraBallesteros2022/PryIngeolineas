@@ -22,6 +22,7 @@ import ingeolineas.modelo.ElementoPp;
 import ingeolineas.modelo.ElementoPpDAO;
 import ingeolineas.modelo.Proyecto;
 import ingeolineas.modelo.ProyectoDAO;
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ public class FrmMenu extends javax.swing.JFrame {
     public FrmMenu() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -174,6 +176,9 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = fContrato.getSize();
+        fContrato.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
        jDesktopPane1.add(fContrato);
        fContrato.show();
     
@@ -188,8 +193,11 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-       jDesktopPane1.add(fcontra);
-       fcontra.show();
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = fcontra.getSize();
+        fcontra.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        jDesktopPane1.add(fcontra);
+        fcontra.show();
     }//GEN-LAST:event_jMiContratistaActionPerformed
 
     private void jMiProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMiProyectoActionPerformed
@@ -197,6 +205,9 @@ public class FrmMenu extends javax.swing.JFrame {
         ProyectoDAO proyecD = new ProyectoDAO();
         FrmProyecto fproyecto = new FrmProyecto();
         ControladorProyecto proyecC = new ControladorProyecto(fproyecto, proyec, proyecD);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = fproyecto.getSize();
+        fproyecto.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         jDesktopPane1.add(fproyecto);
         fproyecto.show();
     }//GEN-LAST:event_jMiProyectoActionPerformed
@@ -210,6 +221,9 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         } 
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = felemento.getSize();
+        felemento.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
        jDesktopPane1.add(felemento);
        felemento.show();
     }//GEN-LAST:event_jMiElementosPPActionPerformed
@@ -223,6 +237,9 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         } 
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = fdocument.getSize();
+        fdocument.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
        jDesktopPane1.add(fdocument);
        fdocument.show();
            
@@ -237,6 +254,9 @@ public class FrmMenu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = fproyec.getSize();
+        fproyec.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         jDesktopPane1.add(fproyec);
         fproyec.show();  
     }//GEN-LAST:event_jMenuItem8ActionPerformed
@@ -246,6 +266,9 @@ public class FrmMenu extends javax.swing.JFrame {
         ElementoPpDAO elementoD= new ElementoPpDAO();
         FrmConsultaElemento felemento = new FrmConsultaElemento();
         ControladorConsElementoP controE = new  ControladorConsElementoP(elemento,elementoD,felemento);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = felemento.getSize();
+        felemento.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         jDesktopPane1.add(felemento);
         felemento.show(); 
     }//GEN-LAST:event_jMenuItem9ActionPerformed

@@ -99,6 +99,11 @@ public class FrmValidacion extends javax.swing.JFrame {
 
         jBtAceptar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtAceptar.setText("Aceptar");
+        jBtAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAceptarActionPerformed(evt);
+            }
+        });
 
         jBtSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtSalir.setText("Salir");
@@ -241,6 +246,10 @@ al formulario De registro (FrmUsuarioos)*/
         
         
     }//GEN-LAST:event_jBtFormularioRegistrarseActionPerformed
+
+    private void jBtAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAceptarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAceptarActionPerformed
 
     /**
      * @param args the command line arguments

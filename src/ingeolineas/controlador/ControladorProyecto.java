@@ -24,8 +24,8 @@ import javax.swing.JOptionPane;
  *
  * @author Usuario
  */
-public class ControladorProyecto implements ActionListener{
-    
+public class ControladorProyecto implements ActionListener {
+
     private FrmProyecto fproyecto;
     private Proyecto proyec;
     private ProyectoDAO proyecD;
@@ -34,27 +34,27 @@ public class ControladorProyecto implements ActionListener{
         this.fproyecto = fproyecto;
         this.proyec = proyec;
         this.proyecD = proyecD;
-        
+
         this.fproyecto.jBtNuevo.addActionListener(this);
         this.fproyecto.jBtGuardar.addActionListener(this);
         this.fproyecto.jBtModificar.addActionListener(this);
         this.fproyecto.jBtEliminar.addActionListener(this);
         this.fproyecto.jBtConsultar.addActionListener(this);
         this.fproyecto.jBtSalir.addActionListener(this);
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         //Nuevo, guardar, modificar, eliminar, consultar y salir
-       
+
         //Método que permite insertar nuevos datos
         if (e.getSource() == fproyecto.jBtNuevo) {
             limpiarControles();
         }
-        
+
         //Método que permite guardar datos en la tabla Proyecto
-         if (e.getSource() == fproyecto.jBtGuardar) {
+        if (e.getSource() == fproyecto.jBtGuardar) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String fecha = format.format(fproyecto.jDtFecha.getDate());
             java.util.Date fechaN = null;
@@ -70,15 +70,15 @@ public class ControladorProyecto implements ActionListener{
             String ciudad = fproyecto.jTxCiudad.getText();
             String responsable = fproyecto.jTxResponsable.getText();
             proyec = new Proyecto(nombre, telefono, fechasql, ciudad, responsable);
-        if (proyecD.adicionar(proyec)) {
+            if (proyecD.adicionar(proyec)) {
                 JOptionPane.showMessageDialog(fproyecto, "El proyecto se registró correctamente");
                 limpiarControles();
             } else {
                 JOptionPane.showMessageDialog(fproyecto, "El proyecto NO se puedo registrar");
-            }       
+            }
         }
-         
-         //Método que permite modificar datos de la tabla Proyecto
+
+        //Método que permite modificar datos de la tabla Proyecto
         if (e.getSource() == fproyecto.jBtModificar) {
             int codProyecto = Integer.parseInt(fproyecto.jTxIdProyecto.getText());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,24 +97,24 @@ public class ControladorProyecto implements ActionListener{
             String responsable = fproyecto.jTxResponsable.getText();
             proyec = new Proyecto(codProyecto, nombre, telefono, fechasql, ciudad, responsable);
             try {
-                if (proyecD.actualizar(proyec)){
-                JOptionPane.showMessageDialog(fproyecto, "El proyecto se actualizó adecuadamente");
+                if (proyecD.actualizar(proyec)) {
+                    JOptionPane.showMessageDialog(fproyecto, "El proyecto se actualizó adecuadamente");
                     limpiarControles();
                 } else {
                     JOptionPane.showMessageDialog(fproyecto, "El Proyecto NO se puedo actualizar");
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(ControladorContratista.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         //Método que permite eliminar datos en la tabla Proyecto
         if (e.getSource() == fproyecto.jBtEliminar) {
-           int codProyecto = Integer.parseInt(fproyecto.jTxIdProyecto.getText());
+            int codProyecto = Integer.parseInt(fproyecto.jTxIdProyecto.getText());
             int respuesta = JOptionPane.showConfirmDialog(fproyecto, "¿Esta seguro de eliminar el registro", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
-                if (proyecD.eliminar(codProyecto)){
+                if (proyecD.eliminar(codProyecto)) {
                     JOptionPane.showMessageDialog(fproyecto, "Se eliminó con éxito");
                     limpiarControles();
                 } else {
@@ -122,12 +122,12 @@ public class ControladorProyecto implements ActionListener{
                 }
             }
         }
-        
-       //Método que permite consultar datos de la tabla Contratista
+
+        //Método que permite consultar datos de la tabla Contratista
         if (e.getSource() == fproyecto.jBtConsultar) {
             int codProyecto = Integer.parseInt(JOptionPane.showInputDialog(fproyecto, "Código del proyecto a consultar"));
             try {
-                proyec = proyecD.consultarProyecto(codProyecto); 
+                proyec = proyecD.consultarProyecto(codProyecto);
             } catch (SQLException ex) {
                 Logger.getLogger(ControladorProyecto.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println(ex);
@@ -143,7 +143,7 @@ public class ControladorProyecto implements ActionListener{
                 JOptionPane.showMessageDialog(fproyecto, "El contrato consultado no se encuentra en la Base de Datos");
             }
         }
-        
+
         //Método que permite salir del formulario
         if (e.getSource() == fproyecto.jBtSalir) {
             int respuesta = JOptionPane.showConfirmDialog(fproyecto, "¿Está seguro que desea salir?", "Fin productos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -152,8 +152,8 @@ public class ControladorProyecto implements ActionListener{
             }
         }
     }
-        
-        public void limpiarControles() {
+
+    public void limpiarControles() {
         java.util.Date date = new java.sql.Date(new java.util.Date().getTime());
         fproyecto.jTxIdProyecto.setText("");
         fproyecto.jTxNombre.setText("");
@@ -161,9 +161,7 @@ public class ControladorProyecto implements ActionListener{
         fproyecto.jDtFecha.setDate(date);
         fproyecto.jTxCiudad.setText("");
         fproyecto.jTxResponsable.setText("");
-        
-    }
 
     }
-    
 
+}

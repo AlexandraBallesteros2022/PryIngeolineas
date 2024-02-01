@@ -77,9 +77,19 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
 
         jBtGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtGuardar.setText("Guardar");
+        jBtGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGuardarActionPerformed(evt);
+            }
+        });
 
         jBtModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtModificar.setText("Modificar");
+        jBtModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtModificarActionPerformed(evt);
+            }
+        });
 
         jBtEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtEliminar.setText("Eliminar");
@@ -195,6 +205,14 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtGuardarActionPerformed
+
+    private void jBtModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

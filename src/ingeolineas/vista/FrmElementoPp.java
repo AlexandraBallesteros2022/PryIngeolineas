@@ -16,6 +16,7 @@ public class FrmElementoPp extends javax.swing.JInternalFrame {
      */
     public FrmElementoPp() {
         initComponents();
+        //this.setLocationRelativeTo();
     }
 
     /**

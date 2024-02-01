@@ -77,6 +77,11 @@ public class FrmContrato extends javax.swing.JInternalFrame {
 
         jBtGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtGuardar.setText("Guardar");
+        jBtGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGuardarActionPerformed(evt);
+            }
+        });
 
         jBtModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtModificar.setText("Modificar");
@@ -200,6 +205,10 @@ public class FrmContrato extends javax.swing.JInternalFrame {
     private void jBtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtSalirActionPerformed
+
+    private void jBtGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

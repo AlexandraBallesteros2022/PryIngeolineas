@@ -5,6 +5,7 @@
  */
 package ingeolineas.vista;
 
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -46,8 +47,8 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
         jTxCodigoProyecto = new javax.swing.JTextField();
         jLbCodigoProyecto = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jBtSeleccionar = new javax.swing.JButton();
+        jLbAdjuntarPDF = new javax.swing.JLabel();
         jLbSeleccionar = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
@@ -108,16 +109,16 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Ingeolineas S.A.S");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Seleccionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtSeleccionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jBtSeleccionar.setText("Seleccionar");
+        jBtSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtSeleccionarActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Adjuntar PDF:");
+        jLbAdjuntarPDF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLbAdjuntarPDF.setText("Adjuntar PDF:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +139,7 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
                                     .addComponent(jLbCodigoProyecto))
                                 .addGap(11, 11, 11))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(jLbAdjuntarPDF)
                                 .addGap(50, 50, 50)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -147,7 +148,7 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
                                 .addComponent(jTxCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTxCodigosg)
                             .addComponent(jTxNombreDocumento)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLbSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -192,8 +193,8 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
                     .addComponent(jLbCodigoProyecto))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jButton1))
+                    .addComponent(jLbAdjuntarPDF)
+                    .addComponent(jBtSeleccionar))
                 .addGap(18, 18, 18)
                 .addComponent(jLbSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
@@ -237,14 +238,15 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxCodigoProyectoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSeleccionarActionPerformed
        JFileChooser jf = new JFileChooser();
        jf.showOpenDialog(this);
        File documento = jf.getSelectedFile();
        if(documento!=null){
            jLbSeleccionar.setText(documento.getAbsolutePath());
        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_jBtSeleccionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,13 +256,13 @@ public class FrmDocumentoSgsst extends javax.swing.JInternalFrame {
     public javax.swing.JButton jBtModificar;
     public javax.swing.JButton jBtNuevo;
     public javax.swing.JButton jBtSalir;
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton jBtSeleccionar;
     public javax.swing.JComboBox<String> jCbCodigoProyecto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLbAdjuntarPDF;
     public javax.swing.JLabel jLbCodigoProyecto;
     public javax.swing.JLabel jLbSeleccionar;
     private javax.swing.JPanel jPanel1;

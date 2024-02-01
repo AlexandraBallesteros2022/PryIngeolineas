@@ -32,5 +32,12 @@ public class Conexion {
     public Connection getConnection(){
        return con; 
     }
+    
+    public void desconectar(){
+        try{
+            con.close();
+        }catch(Exception ex) {
+        }
+    }
 }
 

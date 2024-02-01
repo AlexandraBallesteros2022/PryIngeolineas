@@ -15,11 +15,17 @@ import ingeolineas.vista.FrmContratista;
 import ingeolineas.vista.FrmDocumentoSgsst;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -30,6 +36,7 @@ public class ControladorDocumentoSgsst implements ActionListener{
     private FrmDocumentoSgsst fdocument;
     private DocumentoSgsst document;
     private DocumentoSgsstDAO documentD;
+        String ruta_archivo = "";
 
     public ControladorDocumentoSgsst(FrmDocumentoSgsst fdocument, DocumentoSgsst document, DocumentoSgsstDAO documentD) throws SQLException {
         this.fdocument = fdocument;
@@ -43,8 +50,9 @@ public class ControladorDocumentoSgsst implements ActionListener{
         this.fdocument.jBtModificar.addActionListener(this);
         this.fdocument.jBtNuevo.addActionListener(this);
         this.fdocument.jBtSalir.addActionListener(this);
+        this.fdocument.jBtSeleccionar.addActionListener(this);
         mostrarProyecto();
-        
+               
     }
            
         public void mostrarProyecto() throws SQLException {
@@ -82,11 +90,20 @@ public class ControladorDocumentoSgsst implements ActionListener{
             limpiarControles();
         }
         
-        //Método que permite guardar datos en la tabla DocumentoSG-SST
+        //Método que permite GUARDAR datos en la tabla DocumentoSG-SST
          if (e.getSource() == fdocument.jBtGuardar) {
            int idCodProyecto = Integer.parseInt(fdocument.jCbCodigoProyecto.getSelectedItem().toString());
            String nombreDocumento = fdocument.jTxNombreDocumento.getText();
-           document = new DocumentoSgsst( idCodProyecto, nombreDocumento);
+           File ruta = new File(ruta_archivo);
+           byte[] pdf = new byte[(int) ruta.length()];
+           try {
+               InputStream input = new FileInputStream(ruta);
+               input.read(pdf);
+           } catch (IOException ex) {
+               Logger.getLogger(ControladorDocumentoSgsst.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            //po.setArchivopdf(pdf);
+           document = new DocumentoSgsst(idCodProyecto, nombreDocumento, pdf);
         if (documentD.adicionar(document)) {
                 JOptionPane.showMessageDialog(fdocument, "El documento se resgistro correctamente");
                 limpiarControles();
@@ -95,12 +112,21 @@ public class ControladorDocumentoSgsst implements ActionListener{
             }
         }
          
-         //Método que permite modificar datos de la tabla DocumentoSG-SST
+        //Método que permite MODIFICAR datos de la tabla DocumentoSG-SST
          if (e.getSource() == fdocument.jBtModificar) {
             int idCodDocumento = Integer.parseInt(fdocument.jTxCodigosg.getText());
             int codProyecto = Integer.parseInt(fdocument.jCbCodigoProyecto.getSelectedItem().toString());
             String nombreDocumento = fdocument.jTxNombreDocumento.getText();
-            document = new DocumentoSgsst(idCodDocumento, codProyecto, nombreDocumento);
+            File ruta = new File(ruta_archivo);
+            byte[] pdf = new byte[(int) ruta.length()];
+            
+           try {
+               InputStream input = new FileInputStream(ruta);
+               input.read(pdf);
+           } catch (IOException ex) {
+               Logger.getLogger(ControladorDocumentoSgsst.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            document = new DocumentoSgsst(idCodDocumento, codProyecto, nombreDocumento, pdf);
             try {
                 if (documentD.actualizar(document)){
                 JOptionPane.showMessageDialog(fdocument, "El documento se actualizó adecuadamente");
@@ -114,11 +140,20 @@ public class ControladorDocumentoSgsst implements ActionListener{
             }
         }
         
-        //Método que permite eliminar datos en la tabla DocumentoSG-SST
+        //Método que permite ELIMINAR datos en la tabla DocumentoSG-SST
         if (e.getSource() == fdocument.jBtEliminar) {
             int idCodDocumento = Integer.parseInt(fdocument.jTxCodigosg.getText());
             int respuesta = JOptionPane.showConfirmDialog(fdocument, "¿Esta seguro de eliminar el registro", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
+                File ruta = new File(ruta_archivo);
+                byte[] pdf = new byte[(int) ruta.length()];
+                
+                try {
+                    InputStream input = new FileInputStream(ruta);
+                    input.read(pdf);
+                } catch (IOException ex) {
+                    Logger.getLogger(ControladorDocumentoSgsst.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 if (documentD.eliminar(idCodDocumento)){
                     JOptionPane.showMessageDialog(fdocument, "Se eliminó con éxito");
                     limpiarControles();
@@ -128,7 +163,7 @@ public class ControladorDocumentoSgsst implements ActionListener{
             }
         }
         
-       //Método que permite consultar datos de la tabla DocumentoSG-SST
+       //Método que permite CONSULTAR datos de la tabla DocumentoSG-SST
         if (e.getSource() == fdocument.jBtConsultar) {
             int codDocumento = Integer.parseInt(JOptionPane.showInputDialog(fdocument, "Código del documento a consultar"));
             try {
@@ -147,6 +182,8 @@ public class ControladorDocumentoSgsst implements ActionListener{
             }
         }
         
+        
+        
         //Método que permite salir del formulario
         if (e.getSource() == fdocument.jBtSalir) {
             int respuesta = JOptionPane.showConfirmDialog(fdocument, "¿Está seguro que desea salir?", "Fin productos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -154,8 +191,28 @@ public class ControladorDocumentoSgsst implements ActionListener{
                 fdocument.dispose();
             }
         }
-    }
         
+        if (e.getSource() == fdocument.jBtSeleccionar){
+            seleccionar_pdf();
+        }
+        
+    
+}
+    //Método que permite seleccionar el PDF
+           
+    public void seleccionar_pdf() {
+        JFileChooser j = new JFileChooser();
+        FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf");
+        j.setFileFilter(fi);
+        int se = j.showOpenDialog(fdocument);
+        if (se == 0) {
+            fdocument.jBtSeleccionar.setText("" + j.getSelectedFile().getName());
+            ruta_archivo = j.getSelectedFile().getAbsolutePath();
+
+        } else {
+        }
+          }
+
         public void limpiarControles() {
         java.util.Date date = new java.sql.Date(new java.util.Date().getTime());
         fdocument.jTxCodigosg.setText("");
@@ -163,5 +220,6 @@ public class ControladorDocumentoSgsst implements ActionListener{
         fdocument.jTxNombreDocumento.setText("");
            }
     }
+
     
 

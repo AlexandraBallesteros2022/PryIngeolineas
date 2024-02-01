@@ -16,6 +16,7 @@ public class FrmConsultaElemento extends javax.swing.JInternalFrame {
      */
     public FrmConsultaElemento() {
         initComponents();
+        
     }
 
     /**

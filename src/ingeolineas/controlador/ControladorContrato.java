@@ -88,7 +88,7 @@ public class ControladorContrato implements ActionListener {
             }
         }
 
-                //Método que permite MODIFICAR datos de la clase contrato
+        //Método que permite MODIFICAR datos de la clase contrato
         if (e.getSource() == fContrato.jBtModificar) {
             int idContrato = Integer.parseInt(fContrato.jTxIdContrato.getText());
             String idCedula = fContrato.jCbIdCedula.getSelectedItem().toString();

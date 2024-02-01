@@ -5,6 +5,11 @@
  */
 package ingeolineas.modelo;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,13 +32,14 @@ public class DocumentoSgsstDAO {
     DocumentoSgsst documento = new  DocumentoSgsst();
     //Método para insertar datos a inquilinos en la BD (base de datos)
 public boolean adicionar(DocumentoSgsst documento) {
-        String sql = "insert into documentosgsst(idCodigoProyecto, nombreDocumento)values(?,?)";
+        String sql = "insert into documentosgsst(idCodigoProyecto, nombreDocumento, ArchivoPDF)values(?,?,?)";
          con = cn.getConnection();
 try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, documento.getIdCodigoProyecto());
-            ps.setString(2, documento.getNombre());     
+            ps.setString(2, documento.getNombre());   
+            ps.setBytes(3, documento.getArchivoPDF());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error " + ex);
@@ -50,7 +56,8 @@ public DocumentoSgsst consultarDocumento(int idCodigoSg) throws SQLException {
         if (rs.next()) {
             documento.setIdCodigoSg(rs.getInt("idCodigoSG"));
             documento.setIdCodigoProyecto(rs.getInt("idCodigoProyecto"));
-            documento.setNombre(rs.getString("nombreDocumento"));         
+            documento.setNombre(rs.getString("nombreDocumento")); 
+            documento.setArchivoPDF(rs.getBytes("ArchivoPDF"));
              
             return documento;
         } else {
@@ -59,7 +66,7 @@ public DocumentoSgsst consultarDocumento(int idCodigoSg) throws SQLException {
         }
     }
 public boolean actualizar(DocumentoSgsst documento) throws SQLException {
-        String sql = "update documentosgsst set idCodigoSG=?, idCodigoProyecto=?, nombreDocumento=? where idCodigoSG=?";
+        String sql = "update documentosgsst set idCodigoSG=?, idCodigoProyecto=?, nombreDocumento=?, ArchivoPDF=? where idCodigoSG=?";
 
         try {
             con = cn.getConnection();
@@ -67,6 +74,7 @@ public boolean actualizar(DocumentoSgsst documento) throws SQLException {
             ps.setInt(1,documento.getIdCodigoProyecto());
             ps.setString(2,documento.getNombre());
             ps.setInt(3,documento.getIdCodigoSg());
+            ps.setBytes(4,documento.getArchivoPDF());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error " + ex);
@@ -99,9 +107,45 @@ public boolean eliminar(int idCodigoSG) {
             documento.setIdCodigoSg(rs.getInt("codigo"));
             documento.setNombre(rs.getString("nombreDocumento"));
             documento.setIdCodigoProyecto(rs.getInt("idCodigoProyecto"));
-            listDocument.add(new DocumentoSgsst(documento.getIdCodigoSg(), documento.getIdCodigoProyecto(), documento.getNombre()));
+            listDocument.add(new DocumentoSgsst(documento.getIdCodigoSg(), documento.getIdCodigoProyecto(), documento.getNombre(), documento.getArchivoPDF()));
         }
         return listDocument;
+    }
+    
+    //Método que permite mostrar el PDF contenido en la BD
+    public void ejecutar_archivoPDF(int id) throws SQLException{
+        Conexion cn = new Conexion();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        byte[] b = null;
+        
+        try{
+            ps = cn.getConnection().prepareStatement("SELECT ArchivoPDF from documentosgsst WHERE idCodigoSG=?");//FALTA INGRESAR EL WHERE
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                b = rs.getBytes(1);
+            }
+            
+            InputStream bos = new ByteArrayInputStream(b);
+            
+            int tamanoInput = bos.available();
+            byte[] datosPDF = new byte[tamanoInput];
+            bos.read(datosPDF, 0, tamanoInput);
+
+            OutputStream out = new FileOutputStream("new.pdf");
+            out.write(datosPDF);
+
+            //abrir archivo
+            out.close();
+            bos.close();
+            ps.close();
+            rs.close();
+            cn.desconectar();
+
+        } catch (IOException | NumberFormatException | SQLException ex) {
+            System.out.println("Error al abrir archivo PDF " + ex.getMessage());
+        }
     }
 }
 

@@ -14,19 +14,22 @@ public class DocumentoSgsst {
     private int idCodigoSg;
     private int idCodigoProyecto;
     private String nombre;
+    byte[] archivoPDF;
 
     public DocumentoSgsst() {
     }
 
-    public DocumentoSgsst(int idCodigoSg, int idCodigoProyecto, String nombre) {
+    public DocumentoSgsst(int idCodigoSg, int idCodigoProyecto, String nombre, byte[] archivoPDF) {
         this.idCodigoSg = idCodigoSg;
         this.idCodigoProyecto = idCodigoProyecto;
         this.nombre = nombre;
+        this.archivoPDF = archivoPDF;
     }
     
-     public DocumentoSgsst(int idCodigoProyecto, String nombre) {
+     public DocumentoSgsst(int idCodigoProyecto, String nombre, byte[] archivoPDF) {
         this.idCodigoProyecto = idCodigoProyecto;
         this.nombre = nombre;
+        this.archivoPDF = archivoPDF;
     }
 
     public int getIdCodigoSg() {
@@ -52,7 +55,14 @@ public class DocumentoSgsst {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-   
+
+    public byte[] getArchivoPDF() {
+        return archivoPDF;
+    }
+
+    public void setArchivoPDF(byte[] archivoPDF) {
+        this.archivoPDF = archivoPDF;
+    }
      
     
 }
